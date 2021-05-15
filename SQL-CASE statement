@@ -1,0 +1,21 @@
+SELECT
+	customer_id,
+	transaction_type,
+	amount,
+	CASE
+		WHEN status = 1 THEN 'APROVED'
+		WHEN status = 3 THEN 'REJECTED'
+		ELSE 'WAITING APROVAL'
+	END as Request,
+	CASE
+		WHEN reason = 'Missing' THEN 'Not Available In INERGY'
+		WHEN reason = 'Credit Error' THEN 'Failed to transfer credit'
+		WHEN reason = 'Unprocessed' THEN 'Unprocessed payments'
+		WHEN reason = 'Promotion' THEN 'Bonuses'
+		ELSE ''
+	END as POS_Reason,
+	created_on
+FROM
+	finance_New_teller
+ORDER BY
+	created_on DESC
