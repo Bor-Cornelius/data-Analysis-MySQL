@@ -1,0 +1,19 @@
+SELECT
+	mile.meter_no,
+	mile.customer_id,
+	ci.phone,
+	CASE
+		WHEN ci.code LIKE '%Math%' THEN 'Loc 1'
+		WHEN ci.code LIKE '%kuru%' THEN 'Loc 2'
+		WHEN ci.code LIKE '%bera%' THEN 'Loc 3'
+		ELSE 'Other'
+	END AS Location
+FROM
+	erDB_m_data mile
+Inner JOIN erp.CI_information ci on
+	ci.CI_id = mile.CI_id
+WHERE
+	mile.status = 1 
+	GROUP BY
+		Location)
+LIMIT 30
